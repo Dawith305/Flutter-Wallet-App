@@ -1,7 +1,7 @@
 # flutter_wallet
 
 A new Flutter project.
-
+![Screenshot](https://github.com/Dawith305/flutter-wallet-app/blob/main/wallet_app_screenshot.PNG)
 ## Getting Started
 
 This project is a starting point for a Flutter application.
