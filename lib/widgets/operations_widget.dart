@@ -36,10 +36,12 @@ class _OperationCardState extends State<OperationCard> {
           borderRadius: BorderRadius.circular(15),
           color: widget.isSelected ? Colors.lightBlue : Colors.white),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           SizedBox(height: 5),
           SvgPicture.asset(
-               widget.selectedIcon,),
+            widget.selectedIcon,
+            color: widget.isSelected ? Colors.white : Colors.black,
+          ),
           SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.all(8.0),
