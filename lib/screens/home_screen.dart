@@ -179,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: 16,
                 bottom: 13,
                 top: 29,
+                right: 10,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Row(
                     children: mapIndicator<Widget>(
-                      [0, 1, 2],
+                      operations,
                       (index, selected) {
                         return Container(
                           alignment: Alignment.centerLeft,
