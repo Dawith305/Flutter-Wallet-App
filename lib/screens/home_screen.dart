@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_wallet/models/operation.dart';
+import 'package:flutter_wallet/models/transaction.dart';
 import 'package:flutter_wallet/widgets/operations_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,6 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
     new Operation('Insight Tracking', 'assets/svg/money.svg', ''),
     new Operation('Money Transfer', 'assets/svg/insight.svg', ''),
   ];
+
+  List<Transaction> transactions = [
+    new Transaction(
+        'Uber Ride', '1st Apr 2020', '-\$35.214', 'assets/images/uber.png'),
+    new Transaction(
+        'Nike Outlet', '30th Mar 2020', '-\$100.00', 'assets/images/nike.png'),
+    new Transaction('Payment Received', '15th Mar 2020', '+\$250.00',
+        'assets/images/user_img1.jpg'),
+  ];
+
+
+  List<int> indicators = [0,1,2];
 
   List<T> mapIndicator<T>(List list, Function handler) {
     List<T> result = [];
@@ -40,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             //Custom appbar
             Container(
-              margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+              margin: EdgeInsets.only(left: 16, right: 16, top: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -57,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: 25,
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, bottom: 16),
@@ -81,6 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+
+
+            //Credit Card Section
             Container(
               height: 190,
               child: ListView.builder(
@@ -91,17 +108,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Container(
                       height: 190,
                       width: 344,
-                      margin: EdgeInsets.only(right: 8),
+                      clipBehavior: Clip.hardEdge,
+                      margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(28),
                         color: Colors.lightBlue,
                       ),
                       child: Stack(
-                        children: [
+                        children:<Widget>[
+                          Positioned(
+                            child: SvgPicture.asset('assets/svg/cardTop.svg',color: Colors.black38,),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: SvgPicture.asset('assets/svg/cardBottom.svg',color: Colors.black38,),
+                          ),
                           Positioned(
                             left: 26,
                             top: 48,
-                            child: Text(
+                            child: Text( 
                               'CARD NUMBER',
                               style: GoogleFonts.inter(
                                   fontSize: 14,
@@ -113,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             left: 26,
                             top: 65,
                             child: Text(
-                              '******00001645',
+                              '**** **** **** 9845',
                               style: GoogleFonts.inter(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -174,12 +200,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+
+            //Dot Indicator
             Padding(
               padding: EdgeInsets.only(
                 left: 16,
                 bottom: 13,
                 top: 29,
-                right: 10,
+                right: 20,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -193,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Row(
                     children: mapIndicator<Widget>(
-                      operations,
+                      indicators,
                       (index, selected) {
                         return Container(
                           alignment: Alignment.centerLeft,
@@ -213,6 +241,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+            //Operations Card
             Container(
               height: 125,
               child: ListView.builder(
@@ -233,7 +263,102 @@ class _HomeScreenState extends State<HomeScreen> {
                           isSelected: current == index),
                     );
                   }),
-            )
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(
+                left: 16,
+                bottom: 13,
+                top: 29,
+                right: 10,
+              ),
+              child: Text(
+                'Transactions',
+                style: GoogleFonts.inter(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
+              ),
+            ),
+
+            //Transactions Section
+            ListView.builder(
+                itemCount: transactions.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.only(left: 16, right: 16),
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 76,
+                    margin: EdgeInsets.only(bottom: 12),
+                    padding: EdgeInsets.only(
+                        left: 24, top: 12, bottom: 12, right: 22),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 5,
+                          color: Colors.grey.shade200,
+                          offset: Offset(8.0, 8.0),
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 57,
+                              width: 57,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage(transactions[index].img),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 13,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  transactions[index].transaction,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black),
+                                ),
+                                Text(
+                                  transactions[index].date,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              transactions[index].amount,
+                              style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.lightBlue),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                })
           ],
         ),
       ),

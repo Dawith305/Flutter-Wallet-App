@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wallet/screens/home_screen.dart';
-
+import 'package:flutter_wallet/screens/getting_started_screen.dart';
 void main() {
   runApp(MyApp());
 }
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: GettingStartedScreen(),
     );
   }
 }

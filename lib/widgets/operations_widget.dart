@@ -27,7 +27,7 @@ class _OperationCardState extends State<OperationCard> {
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black12.withOpacity(0.1),
+              color: Colors.grey.shade200,
               blurRadius: 10,
               spreadRadius: 5,
               offset: Offset(8.0, 8.0),
@@ -40,7 +40,7 @@ class _OperationCardState extends State<OperationCard> {
         children: [
           SvgPicture.asset(
             widget.selectedIcon,
-            color: widget.isSelected ? Colors.white : Colors.black,
+            color: widget.isSelected ? Colors.white : Colors.lightBlue,
           ),
           SizedBox(height: 8),
           Padding(
